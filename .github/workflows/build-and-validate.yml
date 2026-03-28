@@ -52,12 +52,12 @@ jobs:
       - name: Check Rego policies
         working-directory: lambda_app
         run: |
-          opa check policies
+          opa check --v0-compatible policies
 
       - name: Verify policies with Conftest
         working-directory: lambda_app
         run: |
-          conftest verify -p policies
+          conftest verify --rego-version v0 -p policies
 
       - name: Synthesize CDK template
         working-directory: lambda_app/cdk
@@ -77,7 +77,7 @@ jobs:
             echo "Validating $template"
             for policy in policies/*.rego; do
               package=$(awk '/^package / { print $2; exit }' "$policy")
-              if opa eval --fail-defined --format pretty -d policies -d "$template" "data.${package}.deny_message"; then
+              if opa eval --v0-compatible --fail-defined --format pretty -d policies -d "$template" "data.${package}.deny_message"; then
                 echo "PASS $(basename "$policy")"
               else
                 echo "FAIL $(basename "$policy")"
