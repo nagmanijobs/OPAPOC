@@ -1,0 +1,22 @@
+{
+  "app": "python3 app.py",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "requirements.txt",
+      "*.py[cod]",
+      "__pycache__",
+      ".*"
+    ]
+  },
+  "context": {
+    "aws:cdk:enable-path-metadata": true,
+    "@aws-cdk/core:stackRelativeExports": true,
+    "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
+    "@aws-cdk/core:newStyleStackSynthesis": true
+  }
+}
